@@ -14,8 +14,6 @@ permissions:
 
 jobs:
   check_tag_up_to_date:
-    if: github.repository == 'contactsimonwilson/PubRemote'
-    
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +58,7 @@ jobs:
           exit 0
 
   delete_old_release:
-    if: ${{ github.repository == 'contactsimonwilson/PubRemote' && env.TAG_UP_TO_DATE == 'NO' }}
+    if: ${{ env.TAG_UP_TO_DATE == 'NO' }}
     needs: check_tag_up_to_date
     
     permissions:
@@ -96,7 +94,7 @@ jobs:
         run: sleep 2
          
   build_and_release:
-    if: ${{ github.repository == 'contactsimonwilson/PubRemote' && env.TAG_UP_TO_DATE == 'NO' }}
+    if: ${{ env.TAG_UP_TO_DATE == 'NO' }}
     needs: delete_old_release
     
     permissions:
